@@ -3,4 +3,4 @@ services:
   mariadb:
     image: moninoeurovisio/exercise-db_mariadb
     ports:
-      - "3306:3306"
+      - "3307:3306"
