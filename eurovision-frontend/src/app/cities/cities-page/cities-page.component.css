@@ -1,10 +1,24 @@
 .mat-elevation-z8{
   width: 90% !important;
   margin: 0 auto;
+  max-height: 35rem;
+  overflow-y: scroll;
 }
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+
 table {
   width: 100%;
 }
 .mat-paginator-container{
-  width: 98% !important;
+  width: 90% !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .mat-elevation-z8{
+    margin: 0.5rem;
+  }
 }

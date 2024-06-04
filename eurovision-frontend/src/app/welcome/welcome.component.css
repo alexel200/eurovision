@@ -1,0 +1,14 @@
+.title{
+  text-align: center;
+}
+h1{
+  font-size: xxx-large;
+  margin-top: 3rem;
+  font-weight: bolder;
+}
+@media only screen and (max-width: 480px) {
+  h1{
+    margin: 0.5rem;
+    font-size: x-large;
+  }
+}

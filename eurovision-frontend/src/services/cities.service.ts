@@ -12,6 +12,7 @@ export class CitiesService {
   }
 
   getCities(pageSize: number, pageIndex: number):Observable<Cities>{
+    console.log(this.baseUrl);
     return this.http.get<Cities>(`${this.baseUrl}/cities/queryByPage?page=${pageIndex}&size=${pageSize}`)
   }
 }

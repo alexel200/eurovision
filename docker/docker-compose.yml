@@ -1,6 +1,41 @@
 version: "3.4"
 services:
+  eurovision:
+    image: eurovision-frontend
+    depends_on:
+      - eurovision-backend
+    build:
+      context: ../eurovision-frontend
+      dockerfile: Dockerfile
+    ports: 
+      - 80:80
+    environment:
+      - BACKEND_URL=http://eurovision-backend/api
+    networks:
+      - eurovision-network
+
+  eurovision-backend:
+    depends_on: 
+      - mariadb
+    build:
+      context: ../eurovision-backend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mariadb/eurovisiondb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATASOURCE.driver-class-name=com.mysql.cj.jdbc.Driver
+    networks:
+      - eurovision-network
+
   mariadb:
     image: moninoeurovisio/exercise-db_mariadb
     ports:
       - "3307:3306"
+    networks:
+      - eurovision-network
+
+networks:
+  eurovision-network:
