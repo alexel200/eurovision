@@ -1,0 +1,8 @@
+.container{
+  width: 100%;
+  padding: 1rem;
+}
+.titleImage{
+  max-width: 16rem;
+  margin: 0 auto;
+}
