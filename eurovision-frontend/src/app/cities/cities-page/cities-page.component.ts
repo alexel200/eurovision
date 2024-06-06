@@ -67,7 +67,7 @@ export class CitiesPageComponent implements OnInit {
     this.pageEvent = e;
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
-    console.log(e);
+
     this.getCities();
   }
 

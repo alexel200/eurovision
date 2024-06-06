@@ -1,0 +1,52 @@
+
+
+<div class="loading" *ngIf="loadingVisible">
+  <div class="spinner">
+    <div class="custom-loader"></div>
+  </div>
+</div>
+
+<div class="title">
+  <h1>Permutable Cities</h1>
+</div>
+
+<div class="container-fluid">
+  <mat-card class="card">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>The most permutable city</mat-card-title>
+      <mat-card-subtitle>Please type the cities' name length</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="permutableForm" (ngSubmit)="onSend()">
+        <div class="inline-form">
+          <mat-form-field floatLabel="always">
+            <mat-label>Length</mat-label>
+            <input matInput
+                   formControlName="citiesNameLength"
+                   type="number"
+                   class="form-control"
+                   required
+                   placeholder="Type the cities' name length. I.E. 7" min="5">
+          </mat-form-field>
+        </div>
+        <div class="inline-form">
+          <button mat-button mat-flat-button color="primary" type="submit">Send</button>
+        </div>
+      </form>
+
+
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <mat-card class="answer-card" *ngIf="answerVisible">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Answer</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      {{result.data}}
+    </mat-card-content>
+  </mat-card>
+</div>
+
