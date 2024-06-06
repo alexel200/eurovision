@@ -1,6 +1,5 @@
 export interface PermutableResponse {
-  status?: string
-  code?: string
-  message?: string
-  data?: string
+  name?: string
+  matches?: number
+  validWords?: string
 }

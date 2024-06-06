@@ -11,4 +11,9 @@ import lombok.Setter;
 public class PermutableCitiesRest {
     @JsonProperty("name")
     String name;
+    @JsonProperty("matches")
+    int matches;
+    
+    @JsonProperty("validWords")
+    String validWords;
 }

@@ -1,11 +1,11 @@
 package net.eurovision.service;
 
 import net.eurovision.jsons.CityRest;
+import net.eurovision.jsons.PermutableCitiesRest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface CityService {
-    Page<CityRest> queryByPage(Pageable pageable);
+    Page<CityRest> queryByPage(int page, int size);
 
-    String findCityWithMostPermutations(int citiesWordLength);
+    PermutableCitiesRest findCityWithMostPermutations(int citiesWordLength);
 }

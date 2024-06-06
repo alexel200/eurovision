@@ -1,14 +1,16 @@
 package net.eurovision.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.eurovision.entities.City;
 import net.eurovision.jsons.CityRest;
+import net.eurovision.jsons.PermutableCitiesRest;
 import net.eurovision.repositories.CityRepository;
 import net.eurovision.repositories.WordRepository;
 import net.eurovision.service.CityService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,43 +20,53 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class CityServiceImpl implements CityService {
-    @Autowired
-    CityRepository cityRepository;
-    @Autowired
-    WordRepository wordRepository;
+
+    private final CityRepository cityRepository;
+    private final WordRepository wordRepository;
+    
     
     private static final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public Page<CityRest> queryByPage(Pageable pageable) {
+    public Page<CityRest> queryByPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        
         Page<City> cityEntities = cityRepository.findAll(pageable);
 
         return cityEntities.map(city -> modelMapper.map(city, CityRest.class));
     }
 
     @Override
-    public String findCityWithMostPermutations(int citiesWordLength) {
-        String result = "";
+    public PermutableCitiesRest findCityWithMostPermutations(int citiesWordLength) {
+        String city = "";
+        int matches = 0;
+        String validWords = "";
         log.info("1. Find cities with seven length");
         List<String> cities = getCitiesByLength(citiesWordLength);
         
         log.info("2. Start finding the most permutable");
         HashMap<Integer, String> theMostPermutableCity = findMostPermutableCity(cities);
         for(Integer key: theMostPermutableCity.keySet()){
-            result = "The city which has the most permutable word is " 
-                                + theMostPermutableCity.get(key) + ", with " + key + " matches";
+            city = theMostPermutableCity.get(key);
+            matches = key;
         }
         log.info("3. Get the valid words for displaying");
         if(theMostPermutableCity.containsKey(-1)){
-            String validWords = "";
             validWords = theMostPermutableCity.get(-1);
-            result += ", with the following words: " + validWords;
         }
         
-        return result;
+        //Create response
+        PermutableCitiesRest permutableCitiesRest = new PermutableCitiesRest();
+        permutableCitiesRest.setName(city);
+        permutableCitiesRest.setMatches(matches);
+        permutableCitiesRest.setValidWords(validWords);
+        return permutableCitiesRest;
     }
+    
+    
 
     private HashMap<Integer, String> findMostPermutableCity(List<String> cities) {
         HashMap<Integer,String> result = new HashMap<>();
@@ -142,15 +154,17 @@ public class CityServiceImpl implements CityService {
             return permutations;
         }
         char initial = word.charAt(0); // first character
-        try{
+        
+        if(word.length() - 2 >= 1){
             String remaining5 = word.substring(1, word.length() - 2); // 5 characters
-            String remaining6 = word.substring(1, word.length() - 1); // 6 characters
-            
             words.addAll(permute(remaining5));
-            words.addAll(permute(remaining6));
-        }catch(Exception e){
-            log.info("Error trying to permute 5 and 6");
         }
+
+        if(word.length() - 1 >= 1){
+            String remaining6 = word.substring(1, word.length() - 1); // 6 characters
+            words.addAll(permute(remaining6));
+        }
+        
         String remaining = word.substring(1); // Full string without first character
         words.addAll(permute(remaining));
         
@@ -206,7 +220,7 @@ public class CityServiceImpl implements CityService {
     }
 
     private List<String> getCitiesByLength(int wordLength){
-        return cityRepository.getNameSevenLength(wordLength);
+        return cityRepository.getNameByLength(wordLength);
     }
 
 

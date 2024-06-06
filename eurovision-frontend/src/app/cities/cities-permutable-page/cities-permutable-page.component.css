@@ -71,3 +71,11 @@ button{
 @keyframes s2{
   100%{transform: rotate(.5turn)}
 }
+
+mat-form-field{
+  width: 90% !important;
+}
+
+.text-danger{
+  color: red;
+}

@@ -21,8 +21,34 @@ export class CitiesPermutablePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isNotValid(field: string):boolean|null{
+    return this.permutableForm.controls[field].errors && this.permutableForm.controls[field].touched;
+  }
+  getPermutableInputErrors(field: string){
+    if(!this.permutableForm.controls[field] ){
+      return null;
+    }
+
+    const errors = this.permutableForm.controls[field].errors || {};
+
+    for(const key of Object.keys(errors)){
+      switch (key){
+        case 'required':
+          return `This ${field} is required`;
+        case 'min':
+          return `At the moment, the minimum value of this ${field} is 5`;
+        case 'max':
+          return `At the moment, the maximum value of this ${field} is 7`;
+      }
+      return "";
+    }
+
+    return this.permutableForm.controls[field].errors || {};
+  }
+
   onSend():void{
     if(this.permutableForm.invalid){
+      this.permutableForm.markAsTouched();
       return;
     }
     this.loadingVisible = true;

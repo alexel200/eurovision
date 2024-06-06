@@ -12,5 +12,5 @@ import java.util.List;
 public interface CityRepository extends JpaRepository<City, Integer> {
     
     @Query("SELECT name FROM City where LENGTH(name) = :wordLength")
-    List<String> getNameSevenLength(@Param("wordLength") int wordLength);
+    List<String> getNameByLength(@Param("wordLength") int wordLength);
 }
