@@ -38,7 +38,8 @@ obligatorio por el contrato compartido. Para ello, se puede hacer uso de la herr
 ## Parte 2 - Ejercicio Adicional 
 <p align="justify">
 Para los ejercicios propuestos, mi selección fue el ejercicio B. Para ello, existe un endpoint /api/cities/permutations
-![Permutations endpoint](https://github.com/alexel200/eurovision/assets/25227784/5e561246-4271-48cb-8ff1-9c477677ccf8)
+
+  ![Permutations endpoint](https://github.com/alexel200/eurovision/assets/25227784/5e561246-4271-48cb-8ff1-9c477677ccf8)
 
 
 A nivel de Front, se puede visualizar el resultado a traves del item "Permutable Cities" del menú
