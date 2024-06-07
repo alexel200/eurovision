@@ -105,7 +105,7 @@ public class CityServiceImpl implements CityService {
         List<String> listOfValidWords = new ArrayList<>();
         int permutationsSize = permutations.size();
         int fetchWords = 1000;
-        int endLimit = 1000;
+        int endLimit = fetchWords;
 
         if(permutationsSize > fetchWords){
             boolean loop = true;
@@ -115,7 +115,7 @@ public class CityServiceImpl implements CityService {
 
                 if(permutationsSize-endLimit == 0){
                     loop = false;
-                }else if(permutationsSize-endLimit < 1000){
+                }else if(permutationsSize-endLimit < fetchWords){
                     endLimit += permutationsSize-endLimit;
                     index += fetchWords;
                 }else{
@@ -137,9 +137,12 @@ public class CityServiceImpl implements CityService {
     private List<String> generatePermutations(String city) {
         log.info("2.1.2 The city " + city + ", permutable work has started");
         List<String> permutations = new ArrayList<>(permute(city));
-
+        int minLengthWordsTaken = city.length() > 2 ? city.length() - 2 : city.length();
         
-        return permutations.stream().filter(word -> word.length() >= 5).distinct().collect(Collectors.toList());
+        return permutations.stream()
+                .filter(word -> word.length() >= minLengthWordsTaken)
+                    .distinct()
+                        .collect(Collectors.toList());
     }
 
     public List<String> permute(String word) {

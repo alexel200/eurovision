@@ -17,6 +17,8 @@ services:
   eurovision-backend:
     depends_on: 
       - mariadb
+    mem_limit: 4g 
+    cpus: 2
     build:
       context: ../eurovision-backend
       dockerfile: Dockerfile
@@ -27,6 +29,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_DATASOURCE.driver-class-name=com.mysql.cj.jdbc.Driver
+
     networks:
       - eurovision-network
 

@@ -9,4 +9,4 @@ COPY ${JAR_FILE} eurovision-backend.jar
 EXPOSE 8080
 
 # Run the App
-ENTRYPOINT ["java", "-jar", "/eurovision-backend.jar"]
+ENTRYPOINT ["java", "-server", "-Xmx4096m", "-Xms2048m", "-jar", "/eurovision-backend.jar"]

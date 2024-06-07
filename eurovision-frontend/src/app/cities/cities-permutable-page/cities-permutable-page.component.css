@@ -32,9 +32,8 @@ input {
   min-width: 30rem;
 }
 
-.inline-form{
-  width: 45%;
-  display: inline-flex;
+.button-container{
+  text-align: center;
 }
 
 button{
@@ -71,11 +70,26 @@ button{
 @keyframes s2{
   100%{transform: rotate(.5turn)}
 }
-
+mat-card {
+  max-width: 94% !important;
+}
 mat-form-field{
   width: 90% !important;
 }
 
 .text-danger{
   color: red;
+}
+
+::ng-deep .mat-card-header-text {
+  margin: 0px !important;
+}
+.card{
+  padding-left: 2rem;
+}
+
+@media only screen and (max-width: 480px) {
+  mat-card {
+    max-width: 82% !important;
+  }
 }

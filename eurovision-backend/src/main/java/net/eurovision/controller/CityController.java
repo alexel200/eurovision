@@ -1,5 +1,6 @@
 package net.eurovision.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.eurovision.jsons.CityRest;
 import net.eurovision.jsons.PermutableCitiesRest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RestController
 @RequestMapping(path = "api/cities")
+@Tag(name="Cities")
 public class CityController {
     @Autowired
     CityService cityService;
